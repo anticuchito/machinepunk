@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRACK_EL_ENCUENTRO</title>
+
+<style>
+
+@font-face {
+
+    font-family: 'PixelOperator';
+
+    src: url('./fonts/PixelOperatorSC-Bold.ttf') format('truetype');
+}
+
+/* BODY */
+
+body {
+
+    margin: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #f3f3f3;
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-family: 'PixelOperator';
+
+    cursor: pointer;
+}
+
+/* VHS */
+
+body::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0px,
+        rgba(0,0,0,0.08) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    animation: scan 0.15s linear infinite;
+}
+
+@keyframes scan {
+
+    from {
+
+        transform: translateY(0px);
+    }
+
+    to {
+
+        transform: translateY(4px);
+    }
+}
+
+/* FLASH */
+
+.flash {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(255,255,255,0.03);
+
+    animation: flash 0.2s infinite;
+
+    pointer-events: none;
+
+    z-index: 998;
+}
+
+@keyframes flash {
+
+    0% { opacity: 0.02; }
+
+    50% { opacity: 0.06; }
+
+    100% { opacity: 0.02; }
+}
+
+/* TITLE */
+
+.title {
+
+    position: relative;
+
+    font-size: clamp(28px, 8vw, 58px);
+
+    letter-spacing: 5px;
+
+    color: black;
+
+    z-index: 500;
+
+    transition: all 0.03s linear;
+
+    text-align: center;
+
+    text-shadow:
+    3px 0 red,
+   -3px 0 cyan;
+}
+
+/* RGB SHADOW */
+
+.title::before {
+
+    content: "TRACK_EL_ENCUENTRO";
+
+    position: absolute;
+
+    left: -3px;
+
+    top: 0;
+
+    color: rgba(255,0,0,0.4);
+
+    z-index: -1;
+}
+
+.title::after {
+
+    content: "TRACK_EL_ENCUENTRO";
+
+    position: absolute;
+
+    left: 3px;
+
+    top: 0;
+
+    color: rgba(0,255,255,0.4);
+
+    z-index: -2;
+}
+
+/* GHOST */
+
+.ghost {
+
+    position: absolute;
+
+    bottom: 10%;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    color: rgba(0,0,0,0.25);
+
+    z-index: 500;
+}
+
+/* TOP TEXT */
+
+.click {
+
+    position: absolute;
+
+    top: 14%;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    color: rgba(0,0,0,0.45);
+
+    animation: blink 1s infinite;
+
+    z-index: 500;
+}
+
+@keyframes blink {
+
+    0% { opacity: 1; }
+
+    50% { opacity: 0.3; }
+
+    100% { opacity: 1; }
+}
+
+/* LOGOS */
+
+.logo {
+
+    position: absolute;
+
+    pointer-events: none;
+
+    mix-blend-mode: multiply;
+
+    animation: logoFade 1s forwards;
+}
+
+@keyframes logoFade {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(0.5);
+    }
+
+    100% {
+
+        opacity: 0.12;
+
+        transform: scale(1);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- AUDIO -->
+
+<audio id="bgmusic" loop autoplay preload="auto">
+
+<source src="./assets/audio/encuentro.mp3" type="audio/mpeg">
+
+</audio>
+
+<!-- FLASH -->
+
+<div class="flash"></div>
+
+<!-- TITLE -->
+
+<div class="title" id="title">
+
+TRACK_EL_ENCUENTRO
+
+</div>
+
+<!-- TOP TEXT -->
+
+<div class="click">
+
+T3rm1n4_ d3 3scuch4r...
+
+</div>
+
+<!-- GHOST -->
+
+<div class="ghost">
+
+archivo_recuperado_1998
+
+</div>
+
+<script>
+
+const music = document.getElementById("bgmusic");
+
+const title = document.getElementById("title");
+
+/* AUTOPLAY */
+
+window.addEventListener("load", () => {
+
+    music.volume = 0.3;
+
+    const playPromise = music.play();
+
+    if(playPromise !== undefined) {
+
+        playPromise.catch(() => {
+
+            document.body.addEventListener("click", () => {
+
+                music.play();
+
+            }, { once: true });
+
+        });
+    }
+});
+
+/* GLITCH TEXTO */
+
+setInterval(() => {
+
+    const intensity = Math.random() * 10;
+
+    const x = (Math.random() - 0.5) * intensity;
+
+    const y = (Math.random() - 0.5) * intensity;
+
+    const blur = Math.random() * 2;
+
+    const spacing = 5 + Math.random() * 5;
+
+    title.style.transform =
+    `translate(${x}px, ${y}px) skew(${x}deg)`;
+
+    title.style.filter =
+    `blur(${blur}px)`;
+
+    title.style.letterSpacing =
+    `${spacing}px`;
+
+}, 80);
+
+/* LOGOS */
+
+function createLogo() {
+
+    const logo = document.createElement("img");
+
+    logo.src = "logo machine punk1.png";
+
+    logo.classList.add("logo");
+
+    /* TAMAÑO RESPONSIVE */
+
+    const size = 40 + Math.random() * 120;
+
+    logo.style.width = size + "px";
+
+    /* POSICION */
+
+    logo.style.left =
+    Math.random() * window.innerWidth + "px";
+
+    logo.style.top =
+    Math.random() * window.innerHeight + "px";
+
+    /* OPACIDAD */
+
+    logo.style.opacity =
+    0.03 + Math.random() * 0.12;
+
+    /* ROTACION */
+
+    const rotate =
+    -20 + Math.random() * 40;
+
+    logo.style.transform =
+    `rotate(${rotate}deg)`;
+
+    /* GLITCH RGB */
+
+    logo.style.filter =
+    `
+    grayscale(100%)
+    contrast(180%)
+    drop-shadow(4px 0 red)
+    drop-shadow(-4px 0 cyan)
+    `;
+
+    document.body.appendChild(logo);
+
+    /* LIMITE */
+
+    if(document.querySelectorAll(".logo").length > 90) {
+
+        document.body.removeChild(
+        document.querySelector(".logo")
+        );
+    }
+}
+
+/* GENERAR LOGOS */
+
+setInterval(() => {
+
+    createLogo();
+
+}, 400);
+
+</script>
+
+</body>
+
+</html>

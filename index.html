@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MACHINEPUNK — live set: IDM, break, hard techno y acid. Eres una copia, ya existe.">
+    <title>MACHINEPUNK</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body>
+
+    <div class="enter-screen">
+        ERES UNA COPIA
+    </div>
+
+    <audio id="drivesfx" preload="auto">
+        <source src="./assets/audio/drive.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgmusic" loop preload="auto">
+        <source src="./assets/audio/bgmusic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const drive = document.getElementById("drivesfx");
+        const music = document.getElementById("bgmusic");
+
+        // Fuerza la descarga completa antes de tocar para evitar cortes por streaming
+        drive.load();
+        music.load();
+
+        window.addEventListener("click", () => {
+            const enterScreen = document.querySelector(".enter-screen");
+
+            // Ocultar el enter-screen siempre, aunque el audio falle
+            setTimeout(() => { enterScreen.style.display = "none"; }, 2500);
+
+            drive.volume = 0.85;
+            music.volume = 0;
+
+            drive.play().catch(() => {});
+            music.play().catch(() => {});
+
+            // Fade-in suave del bgmusic mientras suena el drive
+            const targetVolume = 0.7;
+            const fadeStart = performance.now() + 1300;
+            const fadeDuration = 1200;
+            function fadeIn(now) {
+                const t = (now - fadeStart) / fadeDuration;
+                if (t > 0) music.volume = Math.min(targetVolume, t * targetVolume);
+                if (t < 1) requestAnimationFrame(fadeIn);
+            }
+            requestAnimationFrame(fadeIn);
+        }, { once: true });
+    </script>
+
+    <div id="container">
+
+        <div class="logo-area">
+
+            <img src="./assets/logo_machine_punk1.png" alt="MACHINEPUNK Logo">
+
+            <div class="ascii ascii-1">>_//</div>
+            <div class="ascii ascii-2">[MP]</div>
+            <div class="ascii ascii-3">>mp//</div>
+            <div class="ascii ascii-4">M>P</div>
+            <div class="ascii ascii-5">>//_</div>
+
+            <div class="microtext"></div>
+
+            <div class="big-noise">
+
+                <div class="symbol-strip">
+                    <span>mp://</span>
+                    <span>//mp</span>
+                    <span>>mp</span>
+                    <span>>_//</span>
+                    <span>[MP]</span>
+                    <span>M>P</span>
+                    <span>>mp//</span>
+                    <span>>//_</span>
+                </div>
+
+                MACHINEPUNK.exe MACHINEPUNK.exe MACHINEPUNK.exe MACHINEPUNK.exe MACHINEPUNK.exe MACHINEPUNK.exe
+
+            </div>
+
+        </div>
+
+        <div class="hero-text">
+
+            <p class="small-line typewriter">
+                > señal_detectada
+            </p>
+
+            <h1 class="live-text">
+
+                <span class="typewriter line1">
+                    ERES
+                </span>
+
+                <br>
+
+                <span class="typewriter line2">
+                    REMPLAZABLE,
+                </span>
+
+                <br>
+
+                <span class="typewriter line3">
+                    YA EXISTE
+                </span>
+
+                <br>
+
+                <span class="typewriter line4">
+                    TU COPIA.
+                </span>
+
+            </h1>
+
+            <p class="live-text typewriter">
+                > ejecutando_live_set...
+            </p>
+
+        </div>
+
+        <div class="tracks">
+
+            <h2 class="typewriter">
+                > MACHINE_PUNK//LIVE
+            </h2>
+
+            <div class="divider"></div>
+
+            <ul>
+                <li class="track t1">> machine punk</li>
+                <li class="track t2">> Speed Souls</li>
+                <li class="track t3">> nothing love</li>
+                <li class="track t4">> Ritual 393</li>
+                <li class="track t5">> Plastic Face</li>
+            </ul>
+
+        </div>
+
+        <div class="data-column">
+
+            <p>> iDM_BREAK_HARD TECHNO_ACID.</p>
+
+            <ul>
+                <li>> mc-101</li>
+                <li>> TD-3-MO</li>
+                <li>> mini Kaoss pad</li>
+                <li>> electribe</li>
+                <li>> polyend tracker</li>
+                <li>> zoom H5-78CDR</li>
+            </ul>
+
+        </div>
+
+        <div class="messages">
+
+            <h3>> mensajes_</h3>
+
+            <ul>
+                <li class="typewriter"> > Te están aprendiendo. </li>
+                <li>> Aprenden rápido.</li>
+                <li>> No olvidan.</li>
+                <li>> Observan.</li>
+            </ul>
+
+        </div>
+
+        <div class="tech-block left-block">
+
+            <p>> IDM_BREAK_HARD</p>
+            <p>> TECHNO_ACID.</p>
+
+            <br>
+
+            <p>> TRACKS_</p>
+
+            <ul>
+                <li class="track t6">> machine punk</li>
+                <li class="track t7">> Speed Souls</li>
+                <li class="track t8">> nothing love</li>
+                <li class="track t9">> shy guy pill</li>
+                <li class="track t10">> Ritual 393</li>
+                <li class="track t11">> Plastic Face</li>
+                <li class="track t12">> Drive</li>
+                <li class="track t13">> Distinto y Distante</li>
+            </ul>
+
+        </div>
+
+        <div class="tech-block center-block">
+
+            <p>> LIVE_SET_</p>
+
+            <ul>
+                <li>> mc-101</li>
+                <li>> TD-3-MO</li>
+                <li>> mini Kaoss pad</li>
+                <li>> tr-6s</li>
+                <li>> electribe</li>
+                <li>> polyend tracker</li>
+                <li>> zoom h5</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="big-noise">
+
+        <div class="symbol-strip">
+            <span>mp://</span>
+            <span>//mp</span>
+            <span>>mp</span>
+            <span>>_//</span>
+            <span>[MP]</span>
+            <span>M>P</span>
+            <span>>mp//</span>
+            <span>>//_</span>
+        </div>
+
+        <div class="symbol-column">
+
+            <p>>_//</p>
+            <p>M>P</p>
+            <p>>//_</p>
+            <p>[MP]</p>
+            <p>>mp//</p>
+
+            <div class="micro-symbols">
+                <span>[SYS]</span>
+                <span>>_</span>
+                <span>MP-01</span>
+                <span>//</span>
+                <span>VOID</span>
+                <span>###</span>
+                <span>ERROR</span>
+                <span>RAVE</span>
+                <span>_SIGNAL</span>
+                <span>[LIVE]</span>
+            </div>
+
+        </div>
+
+        <div class="tag-container">
+            <img src="./assets/tag.png" alt="Tag">
+        </div>
+
+    </div>
+
+    <div class="big-noise">
+
+        <div class="symbol-strip">
+            <span>mp://</span>
+            <span>//mp</span>
+            <span>>mp</span>
+            <span>>_//</span>
+            <span>[MP]</span>
+            <span>M>P</span>
+            <span>>mp//</span>
+            <span>>//_</span>
+        </div>
+
+        <div class="scanlines"></div>
+        <div class="crt-flicker"></div>
+        <div class="rave-distortion"></div>
+
+        <div class="overlay overlay-1">
+            >// MACHINEPUNK.exe
+        </div>
+
+        <div class="overlay overlay-2">
+            SIGNAL//ERROR//MP
+        </div>
+
+        <div class="overlay overlay-3">
+            [SYSTEM_ACTIVE]
+        </div>
+
+        <a href="secret.html" class="hidden-button">
+            ENTRAR
+        </a>
+
+    </div>
+
+</body>
+
+</html>
